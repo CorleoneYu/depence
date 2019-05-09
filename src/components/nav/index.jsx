@@ -6,7 +6,7 @@ class Nav extends Component {
     return (
       <div>
         <h1>Hello Nav</h1>
-        {/* <img src={require('image/bing3.jpg')} /> */}
+        <img src={require('image/bing3.jpg')} />
       </div>
       
     )

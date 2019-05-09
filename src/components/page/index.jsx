@@ -7,7 +7,7 @@ class Page extends Component {
     return (
       <div>
         <h1 styleName="title">Hello Page</h1>
-        {/* <img src={require('image/bing3.jpg')} /> */}
+        <img src={require('image/bing3.jpg')} />
       </div>
       
     )
