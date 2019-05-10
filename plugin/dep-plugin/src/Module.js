@@ -4,8 +4,8 @@ class Module {
   constructor(module) {
     this.id = module.id;
     this.index = index++;
-    this.dependencies = [];
-    this.issuer = []
+    this.dependencies = new Set();
+    this.issuer = new Set();
   }
 }
 

@@ -9,7 +9,7 @@ class DepPlugin {
     this.app = app;
     this.isOpen = false;
     this.entry = entry;
-    this.moduleMap = {};
+    this.moduleMap = {}
   }
 
   apply(compiler) {
@@ -54,16 +54,26 @@ class DepPlugin {
     })
 
     modules.forEach(module => {
-      if (module.issuer) {
-        try {
-          console.log(`${module.id}----->${module.issuer.id}`)
-          this.moduleMap[module.issuer.id].dependencies.push(module.id);
-          this.moduleMap[module.id].issuer.push(module.issuer.id);
-        } catch (err) {
-          console.log('err:',err)
+      let reasons = module.reasons;
+      reasons.forEach(reason => {
+        let issuer = reason.module;
+        if (issuer) {
+          console.log(`${module.id} -----reason----- ${issuer.id}`);
+          this.moduleMap[issuer.id].dependencies.add(module.id);
+          this.moduleMap[module.id].issuer.add(issuer.id);
         }
-        
-      }
+      })
+    })
+
+    this.set2Ary()    
+  }
+
+  // 发现set
+  set2Ary() {
+    Object.keys(this.moduleMap).forEach( key => {
+      let module = this.moduleMap[key]
+      module.issuer = Array.from(module.issuer);
+      module.dependencies = Array.from(module.dependencies);
     })
   }
 
